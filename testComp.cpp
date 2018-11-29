@@ -14,14 +14,13 @@ using namespace cs221util;
 TEST_CASE("stats::basic rectArea","[weight=1][part=stats]"){
 
     PNG data; data.resize(2,2);
-
     stats s(data);
     pair<int,int> ul(0,0);
     pair<int,int> lr(1,1);
     long result = s.rectArea(ul,lr);
 
     REQUIRE(result == 4);
-    
+
 }
 
 TEST_CASE("stats::basic getAvg","[weight=1][part=stats]"){
@@ -56,20 +55,30 @@ TEST_CASE("stats::basic entropy","[weight=1][part=stats]"){
         }
     }
     stats s(data);
+//    printf("seg fault entropy test 1\n");
     pair<int,int> ul(0,0);
+//        printf("seg fault entropy test 2\n");
     pair<int,int> lr(1,1);
+//        printf("seg fault entropy test 3\n");
+
     long result = s.entropy(ul,lr);
+//        printf("seg fault entropy test 4\n");
 
     REQUIRE(result == 2);
 }
 
 TEST_CASE("twoDtree::basic ctor render","[weight=1][part=twoDtree]"){
+      printf("seg fault 2dtree 1\n");
     PNG img;
+    printf("seg fault 2dtree 2\n");
     img.readFromFile("images/ada.png");
+    printf("seg fault 2dtree 3\n");
 
     twoDtree t1(img);
+    printf("seg fault 2dtree 4\n");
 
     PNG out = t1.render();
+    printf("seg fault 2dtree 5\n");
 
     REQUIRE(out==img);
 }
@@ -88,7 +97,7 @@ TEST_CASE("twoDtree::basic copy","[weight=1][part=twoDtree]"){
 TEST_CASE("twoDtree::basic prune","[weight=1][part=twoDtree]"){
     PNG img;
     img.readFromFile("images/color.png");
-    
+
     twoDtree t1(img);
 
     PNG prePrune = t1.render();
@@ -99,4 +108,3 @@ TEST_CASE("twoDtree::basic prune","[weight=1][part=twoDtree]"){
 
     REQUIRE(expected==result);
 }
-

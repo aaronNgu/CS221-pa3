@@ -101,9 +101,11 @@ public:
 	 * @param lr is (x,y) of the lower right corner of the rectangle */
     /* entropy is computed from the hist table, as
      * follows: E = -Sum(p_i log(p_i)), where p_i is the fraction of
-     * pixels in bin i, and the sum is taken over all the bins. 
+     * pixels in bin i, and the sum is taken over all the bins.
      * bins holding no pixels should not be included in the sum. */
     double entropy(pair<int,int> ul, pair<int,int> lr);
+
+		void createHistogram(int x, int y);
 
 };
 
