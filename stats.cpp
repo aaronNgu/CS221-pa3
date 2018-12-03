@@ -89,7 +89,7 @@ stats::stats(PNG & im){
 
 //set up histogram for that point before adding
 void stats::createHistogram(int x, int y){
-  int rangeOfBins = 35;
+  int rangeOfBins = 36;
   for(int k = 0; k < rangeOfBins; k++){
     if (x ==0){
       hist[x][y][k] = hist[x][y-1][k];
@@ -144,22 +144,22 @@ if(xTop == 0 && yTop == 0){
   avgLum = sumLum[xBtm][yBtm]/numPixel;
 }else if (xTop == 0){
 //  cout<< "getAvg 9" << endl;
-  avgHue = atan2((sumHueY[xBtm][yBtm] - sumHueY[xTop][yTop-1]),
-                        (sumHueX[xBtm][yBtm] - sumHueX[xTop][yTop-1]))*180 /M_PI;
-  avgSat = (sumSat[xBtm][yBtm] - sumSat[xTop][yTop-1])/numPixel;
-  avgLum = (sumLum[xBtm][yBtm] - sumLum[xTop][yTop-1])/numPixel;
+  avgHue = atan2((sumHueY[xBtm][yBtm] - sumHueY[xBtm][yTop-1]),
+                        (sumHueX[xBtm][yBtm] - sumHueX[xBtm][yTop-1]))*180 /M_PI;
+  avgSat = (sumSat[xBtm][yBtm] - sumSat[xBtm][yTop-1])/numPixel;
+  avgLum = (sumLum[xBtm][yBtm] - sumLum[xBtm][yTop-1])/numPixel;
 }else if (yTop ==0){
 //  cout<< "getAvg 10" << endl;
-  avgHue = atan2((sumHueY[xBtm][yBtm] - sumHueY[xTop-1][yTop]),
-                        (sumHueX[xBtm][yBtm] - sumHueX[xTop-1][yTop]))*180 /M_PI;
-  avgSat = (sumSat[xBtm][yBtm] - sumSat[xTop-1][yTop])/numPixel;
-  avgLum = (sumLum[xBtm][yBtm] - sumLum[xTop-1][yTop])/numPixel;
+  avgHue = atan2((sumHueY[xBtm][yBtm] - sumHueY[xTop-1][yBtm]),
+                        (sumHueX[xBtm][yBtm] - sumHueX[xTop-1][yBtm]))*180 /M_PI;
+  avgSat = (sumSat[xBtm][yBtm] - sumSat[xTop-1][yBtm])/numPixel;
+  avgLum = (sumLum[xBtm][yBtm] - sumLum[xTop-1][yBtm])/numPixel;
 }else {
 ///  cout<< "getAvg 11" << endl;
-  avgHue = atan2((sumHueY[xBtm][yBtm] - sumHueY[xTop-1][yTop] - sumHueY[xTop][yTop-1]),
-                        (sumHueX[xBtm][yBtm] - sumHueX[xTop-1][yTop] - sumHueX[xTop][yTop-1]))*180 /M_PI;
-  avgSat = (sumSat[xBtm][yBtm] - sumSat[xTop-1][yTop] - sumSat[xTop][yTop-1])/numPixel;
-  avgLum = (sumLum[xBtm][yBtm] - sumLum[xTop-1][yTop] - sumLum[xTop][yTop-1])/numPixel;
+  avgHue = atan2((sumHueY[xBtm][yBtm] - sumHueY[xTop-1][yBtm] - sumHueY[xBtm][yTop-1]+sumHueY[xTop-1][yTop-1]),
+                        (sumHueX[xBtm][yBtm] - sumHueX[xTop-1][yBtm] - sumHueX[xBtm][yTop-1]+sumHueX[xTop-1][yTop-1]))*180 /M_PI;
+  avgSat = (sumSat[xBtm][yBtm] - sumSat[xTop-1][yBtm] - sumSat[xBtm][yTop-1] + sumSat[xTop-1][yTop-1])/numPixel;
+  avgLum = (sumLum[xBtm][yBtm] - sumLum[xTop-1][yBtm] - sumLum[xBtm][yTop-1] + sumLum[xTop-1][yTop-1])/numPixel;
 }
 //cout<< "getAvg 12" << endl;
 return avgPixel = HSLAPixel(avgHue, avgSat, avgLum);
