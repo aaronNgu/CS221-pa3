@@ -214,7 +214,7 @@ double stats::entropy(pair<int,int> ul, pair<int,int> lr){
     }else if(yTop == 0){
 //      cout<< " entropy 10"<< endl;
       for(int k = 0; k < rangeOfColors; k++){
-        distn[k] = hist[xBtm][yBtm][k] - hist[xBtm-1][yBtm][k];
+        distn[k] = hist[xBtm][yBtm][k] - hist[xTop-1][yBtm][k];
       }
     }else{
 //      cout<< " entropy 11"<< endl;
