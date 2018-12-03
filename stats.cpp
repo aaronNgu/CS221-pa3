@@ -8,10 +8,15 @@ stats::stats(PNG & im){
 //cout<< "start stats 1"<< endl;
   HSLAPixel* currPixel;
 //  cout<< "stats 2"<< endl;
+  sumSat.clear();
   sumSat.resize(im.width(), vector<double>(im.height(), 0));
+  sumLum.clear();
   sumLum.resize(im.width(), vector<double>(im.height(), 0));
+  sumHueX.clear();
   sumHueX.resize(im.width(), vector<double>(im.height(), 0));
+  sumHueY.clear();
   sumHueY.resize(im.width(), vector<double>(im.height(), 0));
+  hist.clear();
   hist.resize(im.width(), vector<vector<int>>(im.height(), vector<int>(36,0)));
 
   for(int i = 0; i < (int)im.height(); i++){
@@ -27,7 +32,11 @@ stats::stats(PNG & im){
         sumLum[j][i] = currPixel->l;
         sumHueX[j][i] = cos((M_PI * currPixel->h)/180);
         sumHueY[j][i] = sin((M_PI * currPixel->h)/180);
-        hist[j][i][floor(currPixel->h/10)]++;
+        if(floor(currPixel->h/10) == 36){
+          hist[j][i][0]++;
+        }else{
+          hist[j][i][floor(currPixel->h/10)]++;
+        }
 //        printf("hist[%d][%d][%d] is %d \n", j,i,(int)floor(currPixel->h/10), hist[j][i][floor(currPixel->h/10)]);
       }else if(j == 0){
 //        cout<< "stats 7"<< endl;
@@ -37,7 +46,11 @@ stats::stats(PNG & im){
         sumHueX[j][i] = sumHueX[j][i-1] + cos((M_PI * currPixel->h)/180);
         sumHueY[j][i] = sumHueY[j][i-1] + sin((M_PI * currPixel->h)/180);
         createHistogram(j,i);
-        hist[j][i][floor(currPixel->h/10)]++;
+        if(floor(currPixel->h/10) == 36){
+          hist[j][i][0]++;
+        }else{
+          hist[j][i][floor(currPixel->h/10)]++;
+        }
 //        printf("hist[%d][%d][%d] is %d \n",j,i, (int)floor(currPixel->h/10), hist[j][i][floor(currPixel->h/10)]);
       }else if(i == 0){
 //        cout<< "stats 8"<< endl;
@@ -47,7 +60,11 @@ stats::stats(PNG & im){
         sumHueX[j][i] = sumHueX[j-1][i] + cos((M_PI * currPixel->h)/180);
         sumHueY[j][i] = sumHueY[j-1][i] + sin((M_PI * currPixel->h)/180);
         createHistogram(j,i);
-        hist[j][i][floor(currPixel->h/10)]++;
+        if(floor(currPixel->h/10) == 36){
+          hist[j][i][0]++;
+        }else{
+          hist[j][i][floor(currPixel->h/10)]++;
+        }
 //        printf("hist[%d][%d][%d] is %d \n",j,i,(int) floor(currPixel->h/10), hist[j][i][floor(currPixel->h/10)]);
 
       }else{
@@ -58,7 +75,11 @@ stats::stats(PNG & im){
         sumHueX[j][i] = sumHueX[j-1][i] + sumHueX[j][i-1] - sumHueX[j-1][i-1] + cos((M_PI * currPixel->h)/180);
         sumHueY[j][i] = sumHueY[j-1][i] + sumHueY[j][i-1] - sumHueY[j-1][i-1] + sin((M_PI * currPixel->h)/180);
         createHistogram(j,i);
-        hist[j][i][floor(currPixel->h/10)]++;
+        if(floor(currPixel->h/10) == 36){
+          hist[j][i][0]++;
+        }else{
+          hist[j][i][floor(currPixel->h/10)]++;
+        }
 //        printf("hist[%d][%d][%d] is %d \n", j,i,(int)floor(currPixel->h/10), hist[j][i][floor(currPixel->h/10)]);
       }
     }
@@ -177,7 +198,7 @@ double stats::entropy(pair<int,int> ul, pair<int,int> lr){
 //    cout<< " entropy 7"<< endl;
 
     if(xTop == 0 && yTop == 0){
-      cout<< " entropy 8"<< endl;
+//      cout<< " entropy 8"<< endl;
       for(int k = 0; k < rangeOfColors; k++){
 //        cout<< "entropy loop 0 0 start"<< endl;
 //        printf("hist[%d][%d][%d] is %d\n ",xBtm, yBtm,k, hist[xBtm][yBtm][k]);
