@@ -156,6 +156,7 @@ if(xTop == 0 && yTop == 0){
   avgLum = (sumLum[xBtm][yBtm] - sumLum[xTop-1][yBtm])/numPixel;
 }else {
 ///  cout<< "getAvg 11" << endl;
+
   avgHue = atan2((sumHueY[xBtm][yBtm] - sumHueY[xTop-1][yBtm] - sumHueY[xBtm][yTop-1]+sumHueY[xTop-1][yTop-1]),
                         (sumHueX[xBtm][yBtm] - sumHueX[xTop-1][yBtm] - sumHueX[xBtm][yTop-1]+sumHueX[xTop-1][yTop-1]))*180 /M_PI;
   avgSat = (sumSat[xBtm][yBtm] - sumSat[xTop-1][yBtm] - sumSat[xBtm][yTop-1] + sumSat[xTop-1][yTop-1])/numPixel;
@@ -213,12 +214,12 @@ double stats::entropy(pair<int,int> ul, pair<int,int> lr){
     }else if(yTop == 0){
 //      cout<< " entropy 10"<< endl;
       for(int k = 0; k < rangeOfColors; k++){
-        distn[k] = hist[xBtm][yBtm][k] - hist[xBtm-1][yTop][k];
+        distn[k] = hist[xBtm][yBtm][k] - hist[xBtm-1][yBtm][k];
       }
     }else{
 //      cout<< " entropy 11"<< endl;
       for(int k = 0; k < rangeOfColors; k++){
-          distn[k] = hist[xBtm][yBtm][k] - hist[xTop-1][yTop][k] - hist[xTop][yTop-1][k] + hist[xTop+1][yTop+1][k];
+          distn[k] = hist[xBtm][yBtm][k] - hist[xTop-1][yBtm][k] - hist[xBtm][yTop-1][k] + hist[xTop+1][yTop+1][k];
       }
     }
 
